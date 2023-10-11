@@ -1,6 +1,5 @@
 package algorithms;
 
-import javax.management.ValueExp;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +18,7 @@ public class CustomFrame extends JFrame {
 
         // Add algorithm panels
         for (Algorithm value : Algorithm.values()) {
-            value.getSortClass().setCustomFrame(this);
+            value.getSortClass().setCustomFrame(this); // Set frame for back button feature
             addPanel(value.getPanelName(), value.getPanel());
         }
 
@@ -32,12 +31,12 @@ public class CustomFrame extends JFrame {
             }
         });
 
-        // Start panel
+        // Start app panel
         JPanel startPanel = new JPanel();
         startPanel.add(new JLabel("Choose algorithm:"));
         startPanel.add(algorithmsComboBox);
 
-        // Add start panel
+        // Add start app panel
         addPanel("start", startPanel);
     }
 

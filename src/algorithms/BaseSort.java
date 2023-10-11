@@ -50,11 +50,15 @@ public abstract class BaseSort extends JPanel{
         currentIndex = 0;
     }
 
+    /*
+    Visualize sorting
+    */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int barWidth = getWidth() / ARRAY_SIZE;
 
+        // Replace bars
         for (int i = 0; i < ARRAY_SIZE; i++) {
             if (i == currentIndex) {
                 g.setColor(Color.RED);
@@ -63,6 +67,8 @@ public abstract class BaseSort extends JPanel{
             }
             g.fillRect(i * barWidth, getHeight() - array[i], barWidth, array[i]);
         }
+
+        // Show time performance
         try {
             g.setColor(Color.BLACK);
             Instant current = Instant.now();

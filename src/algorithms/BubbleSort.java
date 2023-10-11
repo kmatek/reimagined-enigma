@@ -1,7 +1,6 @@
 package algorithms;
 
 import javax.swing.*;
-import java.time.Duration;
 import java.time.Instant;
 
 public class BubbleSort extends BaseSort{
@@ -12,11 +11,15 @@ public class BubbleSort extends BaseSort{
         // Start sorting button
         JButton startButton = new JButton("Start");
         startButton.addActionListener(e -> {
+            // Start time performance
             start = Instant.now();
+
+            // Start worker
             if (sortingWorker == null || sortingWorker.isDone()) {
                 sortingWorker = new SwingWorker<Void, Void>() {
                     @Override
                     protected Void doInBackground() {
+                        // Start sorting
                         sort(getArray());
                         return null;
                     }
@@ -29,7 +32,6 @@ public class BubbleSort extends BaseSort{
                 sortingWorker.execute();
             }
         });
-
         add(startButton);
 
         // Reset button
@@ -38,7 +40,6 @@ public class BubbleSort extends BaseSort{
             resetSorting();
             repaint();
         });
-
         add(resetButton);
     }
 
