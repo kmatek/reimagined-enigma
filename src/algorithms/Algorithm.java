@@ -7,9 +7,9 @@ public enum Algorithm {
     BUBBLE("bubble", new BubbleSort());
 
     private final String panelName;
-    private final JPanel panel;
+    private final BaseSort panel;
 
-    Algorithm(String panelName, JPanel panel) {
+    Algorithm(String panelName, BaseSort panel) {
         this.panelName = panelName;
         this.panel = panel;
     }
@@ -18,7 +18,11 @@ public enum Algorithm {
         return panelName;
     }
 
-    public JPanel getPanel() {
+    public BaseSort getSortClass() {
         return panel;
+    }
+
+    public JPanel getPanel() {
+        return (JPanel) panel;
     }
 }

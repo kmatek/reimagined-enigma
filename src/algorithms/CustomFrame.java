@@ -1,5 +1,6 @@
 package algorithms;
 
+import javax.management.ValueExp;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ public class CustomFrame extends JFrame {
 
         // Add algorithm panels
         for (Algorithm value : Algorithm.values()) {
+            value.getSortClass().setCustomFrame(this);
             addPanel(value.getPanelName(), value.getPanel());
         }
 

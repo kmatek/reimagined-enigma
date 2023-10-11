@@ -9,6 +9,18 @@ public abstract class BaseSort extends JPanel{
     private static final int ARRAY_SIZE = 100;
     protected int currentIndex;
     protected SwingWorker<Void, Void> sortingWorker;
+    private CustomFrame frame;
+
+    public BaseSort() {
+        // Reset button
+        JButton goBackButton = new JButton("Go back");
+        goBackButton.addActionListener(e -> {
+            resetSorting();
+            repaint();
+            frame.showPanel("start");
+        });
+        add(goBackButton);
+    }
 
     public int[] generateRandomArray() {
         Random random = new Random();
@@ -20,6 +32,18 @@ public abstract class BaseSort extends JPanel{
         }
 
         return array;
+    }
+
+    private void cancelWorker() {
+        if (sortingWorker != null) {
+            sortingWorker.cancel(true);
+        }
+    }
+
+    protected void resetSorting() {
+        cancelWorker();
+        setArray(generateRandomArray());
+        currentIndex = 0;
     }
 
     @Override
@@ -45,15 +69,7 @@ public abstract class BaseSort extends JPanel{
         this.array = array;
     }
 
-    private void cancelWorker() {
-        if (sortingWorker != null) {
-            sortingWorker.cancel(true);
-        }
-    }
-
-    protected void resetSorting() {
-        cancelWorker();
-        setArray(generateRandomArray());
-        currentIndex = 0;
+    public void setCustomFrame(CustomFrame frame) {
+        this.frame = frame;
     }
 }
