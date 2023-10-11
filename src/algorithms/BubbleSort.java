@@ -1,6 +1,8 @@
 package algorithms;
 
 import javax.swing.*;
+import java.time.Duration;
+import java.time.Instant;
 
 public class BubbleSort extends BaseSort{
     public BubbleSort() {
@@ -10,6 +12,7 @@ public class BubbleSort extends BaseSort{
         // Start sorting button
         JButton startButton = new JButton("Start");
         startButton.addActionListener(e -> {
+            start = Instant.now();
             if (sortingWorker == null || sortingWorker.isDone()) {
                 sortingWorker = new SwingWorker<Void, Void>() {
                     @Override

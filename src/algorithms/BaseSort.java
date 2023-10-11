@@ -2,12 +2,15 @@ package algorithms;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Random;
 
 public abstract class BaseSort extends JPanel{
     private int[] array = generateRandomArray();
     private static final int ARRAY_SIZE = 100;
     protected int currentIndex;
+    protected Instant start;
     protected SwingWorker<Void, Void> sortingWorker;
     private CustomFrame frame;
 
@@ -43,6 +46,7 @@ public abstract class BaseSort extends JPanel{
     protected void resetSorting() {
         cancelWorker();
         setArray(generateRandomArray());
+        start = null;
         currentIndex = 0;
     }
 
@@ -58,6 +62,14 @@ public abstract class BaseSort extends JPanel{
                 g.setColor(Color.BLUE);
             }
             g.fillRect(i * barWidth, getHeight() - array[i], barWidth, array[i]);
+        }
+        try {
+            g.setColor(Color.BLACK);
+            Instant current = Instant.now();
+            long milis = Duration.between(start, current).toMillis();
+            g.drawString("Sorting time: " + milis + " ms", 10, 20);
+        } catch (Exception e) {
+            g.drawString("Sorting time: " + "0" + " ms", 10, 20);
         }
     }
 
