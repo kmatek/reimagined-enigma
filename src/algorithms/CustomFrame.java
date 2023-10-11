@@ -1,4 +1,4 @@
-import algorithms.Algorithm;
+package algorithms;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +15,11 @@ public class CustomFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         add(cardPanel);
+
+        // Add algorithm panels
+        for (Algorithm value : Algorithm.values()) {
+            addPanel(value.getPanelName(), value.getPanel());
+        }
 
         // Algorithms selection
         algorithmsComboBox.addActionListener(new ActionListener() {
