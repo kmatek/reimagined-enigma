@@ -9,12 +9,14 @@ import java.util.Random;
 public abstract class BaseSort extends JPanel{
     private int[] array = generateRandomArray();
     private static final int ARRAY_SIZE = 100;
+    private static final int SLEEP_SEC = 10;
     private int currentIndex;
     private Instant start;
     private JButton startButton;
     private SwingWorker<Void, Void> sortingWorker;
     private CustomFrame frame;
     private boolean sorting = false;
+    private boolean sorted;
 
     public BaseSort() {
         // Go back button
@@ -61,9 +63,10 @@ public abstract class BaseSort extends JPanel{
     protected void resetSorting() {
         cancelWorker();
         setArray(generateRandomArray());
-        start = null;
+        setStart(null);
         setSorting(false);
-        currentIndex = 0;
+        setSorted(false);
+        setCurrentIndex(0);
     }
 
     /*
@@ -111,6 +114,14 @@ public abstract class BaseSort extends JPanel{
         return sorting;
     }
 
+    public boolean isSorted() {
+        return sorted;
+    }
+
+    public void setSorted(boolean sorted) {
+        this.sorted = sorted;
+    }
+
     public void setSorting(boolean sorting) {
         this.sorting = sorting;
     }
@@ -141,5 +152,9 @@ public abstract class BaseSort extends JPanel{
 
     public JButton getStartButton() {
         return startButton;
+    }
+
+    public int getSleepSec() {
+        return SLEEP_SEC;
     }
 }
