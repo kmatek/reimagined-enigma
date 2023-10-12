@@ -3,7 +3,7 @@ package algorithms;
 import javax.swing.*;
 
 public enum Algorithm {
-//    QUICK("quick", null),
+    QUICK("quick", new QuickSort()),
     BUBBLE("bubble", new BubbleSort());
 
     private final String panelName;

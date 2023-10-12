@@ -11,7 +11,7 @@ public class BubbleSort extends BaseSort{
         // Add action to start button
         getStartButton().addActionListener(e -> {
             // Prevent start again during sorting
-            if (isSorting()) {
+            if (isSorting() || isSorted()) {
                 return;
             }
 
@@ -31,6 +31,7 @@ public class BubbleSort extends BaseSort{
                     @Override
                     protected void done() {
                         setSorting(false);
+                        setSorted(true);
                         repaint();
                     }
                 });
@@ -50,7 +51,7 @@ public class BubbleSort extends BaseSort{
                     setCurrentIndex(j + 1);
                     repaint();
                     try {
-                        Thread.sleep(5);  // Delay for visualization
+                        Thread.sleep(getSleepSec());  // Delay for visualization
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         return;
