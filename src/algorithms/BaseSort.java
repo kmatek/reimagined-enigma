@@ -9,13 +9,15 @@ import java.util.Random;
 public abstract class BaseSort extends JPanel{
     private int[] array = generateRandomArray();
     private static final int ARRAY_SIZE = 100;
-    protected int currentIndex;
-    protected Instant start;
-    protected SwingWorker<Void, Void> sortingWorker;
+    private int currentIndex;
+    private Instant start;
+    private JButton startButton;
+    private SwingWorker<Void, Void> sortingWorker;
     private CustomFrame frame;
+    private boolean sorting = false;
 
     public BaseSort() {
-        // Reset button
+        // Go back button
         JButton goBackButton = new JButton("Go back");
         goBackButton.addActionListener(e -> {
             resetSorting();
@@ -23,6 +25,19 @@ public abstract class BaseSort extends JPanel{
             frame.showPanel("start");
         });
         add(goBackButton);
+
+        // Start sorting button
+        startButton = new JButton("Start");
+        add(startButton);
+
+
+        // Reset button
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(e -> {
+            resetSorting();
+            repaint();
+        });
+        add(resetButton);
     }
 
     public int[] generateRandomArray() {
@@ -47,6 +62,7 @@ public abstract class BaseSort extends JPanel{
         cancelWorker();
         setArray(generateRandomArray());
         start = null;
+        setSorting(false);
         currentIndex = 0;
     }
 
@@ -89,5 +105,41 @@ public abstract class BaseSort extends JPanel{
 
     public void setCustomFrame(CustomFrame frame) {
         this.frame = frame;
+    }
+
+    public boolean isSorting() {
+        return sorting;
+    }
+
+    public void setSorting(boolean sorting) {
+        this.sorting = sorting;
+    }
+
+    public SwingWorker<Void, Void> getSortingWorker() {
+        return sortingWorker;
+    }
+
+    public void setSortingWorker(SwingWorker<Void, Void> sortingWorker) {
+        this.sortingWorker = sortingWorker;
+    }
+
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
+
+    public Instant getStart() {
+        return start;
+    }
+
+    public void setStart(Instant start) {
+        this.start = start;
+    }
+
+    public JButton getStartButton() {
+        return startButton;
     }
 }
