@@ -8,15 +8,19 @@ public class BubbleSort extends BaseSort{
         JLabel title = new JLabel("Bubble sort");
         add(title);
 
-        // Start sorting button
-        JButton startButton = new JButton("Start");
-        startButton.addActionListener(e -> {
-            // Start time performance
-            start = Instant.now();
+        // Add action to start button
+        getStartButton().addActionListener(e -> {
+            // Prevent start again during sorting
+            if (isSorting()) {
+                return;
+            }
+
+            setStart(Instant.now()); // Start time performance
+            setSorting(true);
 
             // Start worker
-            if (sortingWorker == null || sortingWorker.isDone()) {
-                sortingWorker = new SwingWorker<Void, Void>() {
+            if (getSortingWorker() == null || getSortingWorker().isDone()) {
+                setSortingWorker(new SwingWorker<Void, Void>() {
                     @Override
                     protected Void doInBackground() {
                         // Start sorting
@@ -26,21 +30,13 @@ public class BubbleSort extends BaseSort{
 
                     @Override
                     protected void done() {
+                        setSorting(false);
                         repaint();
                     }
-                };
-                sortingWorker.execute();
+                });
+                getSortingWorker().execute();
             }
         });
-        add(startButton);
-
-        // Reset button
-        JButton resetButton = new JButton("Reset");
-        resetButton.addActionListener(e -> {
-            resetSorting();
-            repaint();
-        });
-        add(resetButton);
     }
 
     private void sort(int[] arr) {
@@ -51,7 +47,7 @@ public class BubbleSort extends BaseSort{
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
-                    currentIndex = j + 1;
+                    setCurrentIndex(j + 1);
                     repaint();
                     try {
                         Thread.sleep(5);  // Delay for visualization
